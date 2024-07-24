@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+        <th>STT</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>CreateDate</th>
+    </thead>
+    <tbody>
+        <tr th:each="pr, stt :${sp}">
+            <td th:text="${stt.index+1}"></td>
+            <td th:text="${pr.name}"></td>
+        </tr>
+    </tbody>
+</table>
+<div>
+    <span th:if="${sp.hasPrevious()}">
+            <a th:href="@{/home(p=${sp.number - 1})}">&laquo; Previous</a>
+        </span>
+    <span th:if="${sp.hasNext()}">
+            <a th:href="@{/home(p=${sp.number + 1})}">Next &raquo;</a>
+        </span>
+    <span>Page <span th:text="${sp.number + 1}">1</span> of <span th:text="${sp.totalPages}">1</span></span>
+</div>
+
+</body>
+</html>
