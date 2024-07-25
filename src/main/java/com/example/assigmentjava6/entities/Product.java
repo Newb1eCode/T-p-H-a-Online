@@ -35,7 +35,7 @@ import lombok.ToString;
 public class Product  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer id;
+	Long id;
 	String name;
 	String image;
 	Double price;

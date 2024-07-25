@@ -12,12 +12,22 @@
         <th>Image</th>
         <th>Price</th>
         <th>Category</th>
+        <th>Available</th>
         <th>CreateDate</th>
+        <th>*</th>
     </thead>
     <tbody>
         <tr th:each="pr, stt :${sp}">
             <td th:text="${stt.index+1}"></td>
             <td th:text="${pr.name}"></td>
+            <td th:text="${pr.image}"></td>
+            <td th:text="${pr.price}"></td>
+            <td th:text="${pr.category.name}"></td>
+            <td th:text="${pr.available}"></td>
+            <td th:text="${pr.createDate}"></td>
+            <td>
+                <a href=""></a>
+            </td>
         </tr>
     </tbody>
 </table>
