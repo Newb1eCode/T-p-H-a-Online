@@ -20,6 +20,10 @@ public class ProductService {
         return repoPro.findAll();
     }
 
+    public  Page<Product> findByname(String name, Pageable pageable){
+        return repoPro.findByName(name,pageable);
+    }
+
     public Page<Product> findAll(Pageable pageable){
         return repoPro.findAll(pageable);
     }

@@ -1,45 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<table>
-    <thead>
-        <th>STT</th>
-        <th>Name</th>
-        <th>Image</th>
-        <th>Price</th>
-        <th>Category</th>
-        <th>Available</th>
-        <th>CreateDate</th>
-        <th>*</th>
-    </thead>
-    <tbody>
-        <tr th:each="pr, stt :${sp}">
-            <td th:text="${stt.index+1}"></td>
-            <td th:text="${pr.name}"></td>
-            <td th:text="${pr.image}"></td>
-            <td th:text="${pr.price}"></td>
-            <td th:text="${pr.category.name}"></td>
-            <td th:text="${pr.available}"></td>
-            <td th:text="${pr.createDate}"></td>
-            <td>
-                <a href=""></a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<div>
-    <span th:if="${sp.hasPrevious()}">
-            <a th:href="@{/home(p=${sp.number - 1})}">&laquo; Previous</a>
-        </span>
-    <span th:if="${sp.hasNext()}">
-            <a th:href="@{/home(p=${sp.number + 1})}">Next &raquo;</a>
-        </span>
-    <span>Page <span th:text="${sp.number + 1}">1</span> of <span th:text="${sp.totalPages}">1</span></span>
-</div>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragments/head :: head}"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
 
+    <div th:replace="~{/fragments/header :: header}"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <div th:replace="~{/fragments/slider :: slider}"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Blank page
+                <small>it all starts here</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Examples</a></li>
+                <li class="active">Blank page</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="col-xs-12">
+                <div class="box">
+
+                    <div class="box-header">
+                        <h3 class="box-title">Thông tin sản phẩm</h3>
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
+                                <form th:action="@{/Product-find}" method="get">
+                                    <input type="text" name="name" class="form-control right" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <thead>
+                            <th>STT</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Available</th>
+                            <th>CreateDate</th>
+                            <th>*</th>
+                            </thead>
+                            <tbody>
+                            <tr th:each="pr, stt :${sp}">
+                                <td th:text="${stt.index+1}"></td>
+                                <td th:text="${pr.name}"></td>
+                                <td>
+                                    <img th:src="@{'/images/' + ${pr.image}}"  alt="Product Image" width="30" height="30">
+                                </td>
+                                <td th:text="${pr.price}"></td>
+                                <td th:text="${pr.category.name}"></td>
+                                <td th:text="${pr.available}"></td>
+                                <td th:text="${pr.createDate}"></td>
+                                <td>
+                                    <a class="btn btn-danger" th:href="@{/Product-delete/{id}(id = ${pr.id})}"> Xóa </a>
+                                    <a class="btn btn-primary" th:href="@{/Product-detail/{id}(id = ${pr.id})}">Chi tiết</a>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li th:classappend="${sp.hasPrevious()} ? '' : 'disabled'">
+                                <a th:href="${sp.hasPrevious()} ? @{/Product-home(p=${sp.number - 1})} : '#'" aria-label="Previous">«</a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(0, sp.totalPages - 1)}" th:classappend="${sp.number == i} ? 'active'">
+                                <a th:href="@{/Product-home(p=${i})}" th:text="${i + 1}">1</a>
+                            </li>
+                            <li th:classappend="${sp.hasNext()} ? '' : 'disabled'">
+                                <a th:href="${sp.hasNext()} ? @{/Product-home(p=${sp.number + 1})} : '#'" aria-label="Next">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-primary" href="/Product-viewAdd">Thêm</a>
+                </div>
+            </div>
+            <!-- Default box -->
+
+            <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="~{/fragments/footer :: footer}"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<div th:replace="~{/fragments/js :: script}"></div>
 </body>
 </html>
